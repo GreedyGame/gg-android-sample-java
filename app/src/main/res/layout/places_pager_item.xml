@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/heroImage"
+        android:layout_width="wrap_content"
+        android:layout_height="368dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_tag_bg"
+        android:text="Outdoors"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:fontFamily="@font/poppins"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@id/heroImage"
+        app:layout_constraintTop_toTopOf="@id/heroImage" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="14dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Antelope\nCanyon"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintStart_toStartOf="@id/heroImage" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="39dp"
+        android:drawableStart="@drawable/ic_map_pin"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="Arizona, USA"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/heroImage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
