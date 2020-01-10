@@ -2,7 +2,7 @@
 
 SDK Version 8.8.16
 
-Last Updated 6th December 2019
+Last Updated 10th Jan 2020
 
 # Integration
 Apps can easily integrate GreedyGame SDK with Gradle 
