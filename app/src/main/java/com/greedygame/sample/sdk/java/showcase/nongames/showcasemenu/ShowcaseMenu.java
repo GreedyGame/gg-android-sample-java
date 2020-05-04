@@ -1,4 +1,4 @@
-package com.greedygame.sample.sdk8.java.showcasemenu;
+package com.greedygame.sample.sdk.java.showcase.nongames.showcasemenu;
 
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -9,24 +9,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.sample.sdk8.java.BaseActivity;
+import com.greedygame.core.GreedyGameAds;
+import com.greedygame.core.interfaces.GreedyGameAdsEventsListener;
+import com.greedygame.core.models.InitErrors;
+import com.greedygame.sample.BaseActivity;
+import com.greedygame.sample.BaseApplication;
+import com.greedygame.sample.GreedyGameManager;
 import com.greedygame.sample.sdk8.java.R;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.TravelDashboard;
-import com.greedygame.sample.sdk8.java.utils.notimportant.SizeReductionPageTransformer;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.TravelDashboard;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.notimportant.SizeReductionPageTransformer;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-public class ShowcaseMenu extends BaseActivity {
+import org.jetbrains.annotations.NotNull;
+
+public class ShowcaseMenu extends BaseActivity implements GreedyGameAdsEventsListener {
 
     LinearLayout buttonBar;
     ProgressBar loader;
     Button knowMoreButton,seeDemoButton;
     DotsIndicator dotsIndicator;
     ViewPager2 contentViewPager;
-
-    private ShowcaseListener ggEventListener = new ShowcaseListener();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +40,14 @@ public class ShowcaseMenu extends BaseActivity {
         initViewPager();
         setClickListeners();
         //Registering the event receiver for this class to the BaseClass
-        if(isGreedyGameAgentInitialised) {
+        if(GreedyGameAds.isSdkInitialized()) {
             hideLoader();
         }
         else {
             showLoader();
-            initAds();
+            GreedyGameManager.init(BaseApplication.appContext,this);
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mBaseCampaignStateListener.receiver = ggEventListener;
-    }
-
     private void bindViews(){
         buttonBar = findViewById(R.id.buttonBar);
         loader = findViewById(R.id.loader);
@@ -96,23 +93,20 @@ public class ShowcaseMenu extends BaseActivity {
 
     }
 
-    class ShowcaseListener implements CampaignStateListener
-    {
-        @Override
-        public void onUnavailable() {
-            hideLoader();
-        }
+    @Override
+    public void onDestroyed() {
+        Toast.makeText(this,"SDK Destroyed",Toast.LENGTH_SHORT).show();
+    }
 
-        @Override
-        public void onAvailable(String p0) {
-            hideLoader();
+    @Override
+    public void onInitFailed(@NotNull InitErrors initErrors) {
+        hideLoader();
+        Toast.makeText(this,"SDK Failed",Toast.LENGTH_SHORT).show();
+    }
 
-        }
-
-        @Override
-        public void  onError(String p0) {
-            loader.setVisibility(View.GONE);
-        }
-
+    @Override
+    public void onInitSuccess() {
+        hideLoader();
+        Toast.makeText(this,"Init Successful",Toast.LENGTH_SHORT).show();
     }
 }

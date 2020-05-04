@@ -1,44 +1,51 @@
-package com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.adapters.viewpager;
+package com.greedygame.sample.sdk.java.showcase.nongames.travel_app.adapters.viewpager;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.greedygame.sample.sdk8.java.BaseActivity;
+import com.greedygame.core.adview.GGAdview;
+import com.greedygame.core.adview.interfaces.AdLoadCallback;
+import com.greedygame.core.adview.modals.AdRequestErrors;
+import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.sdk8.java.R;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model.AdPagerItem;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model.BaseItem;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model.ItemTypes;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model.PlacesPagerItem;
-import com.greedygame.sample.sdk8.java.utils.Utils;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.AdPagerItem;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.BaseItem;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.ItemTypes;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.PlacesPagerItem;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.Utils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.ViewHolder> {
 
     OnPageClick pageClickListener;
+    Context context;
 
     public PlacesPagerAdapter(OnPageClick pageClickListener){
         this.pageClickListener = pageClickListener;
     }
 
-    /**
-     * This ad unit is inserted in between the data set. You can add multiple ad units based on your requirements.
+    /***
+     The list data represents your apps data for the recyclerview. When loading data from an api, insert ad objects
+     within the data at predetermined positions like every 5th position. In this example it is every 3rd position.
+     ** IMPORTANT **
+     When displaying admob ads make sure that there is only one unit visible on the screen at any time.
      */
-
-    private final String  AD_UNIT_4343 = "float-4343";
-
-    private List<BaseItem> originalData = new ArrayList<>(Arrays.asList(
+    private List<BaseItem> data = new ArrayList<>(Arrays.asList(
             new PlacesPagerItem(
                     ItemTypes.CONTENT,
                     "https://i.imgur.com/y7v9pCJ.png",
@@ -55,8 +62,7 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
                     "Amristar\nFort",
                     "Amrister,India"
             ), new AdPagerItem(
-                    ItemTypes.AD,
-                    AD_UNIT_4343
+                    ItemTypes.AD
             ), new PlacesPagerItem(
                     ItemTypes.CONTENT,
                     "https://i.imgur.com/T5tPude.png",
@@ -68,29 +74,11 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
                     "Eiffel\nTower",
                     "Paris,France"
             ), new AdPagerItem(
-                    ItemTypes.AD,
-                    AD_UNIT_4343
+                    ItemTypes.AD
             )
 
     ));
-    private List<BaseItem> data = new ArrayList<>();
 
-    /**
-     * This function will filter data based on the campaign availability. Each time a refresh is called on GreedyGame agent
-     * data will be filtered based on campaign status.
-     */
-    public void filterData(){
-        Log.d("CAMPAIGN_AVAILABLE","Called with"+ BaseActivity.mGreedyGameAgent.isCampaignAvailable());
-        if(!BaseActivity.mGreedyGameAgent.isCampaignAvailable()) {
-            for (BaseItem item : originalData) {
-                if (item.itemType == ItemTypes.CONTENT) {
-                    data.add(item);
-                }
-            }
-        }else
-            data = originalData;
-        notifyDataSetChanged();
-    }
 
 
     @Override
@@ -107,6 +95,7 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewType,parent,false));
     }
 
@@ -120,9 +109,10 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
         return data.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements AdLoadCallback {
         View mView;
-        ImageView adUnit,heroImage;
+        GGAdview adUnit;
+        ImageView heroImage;
         ConstraintLayout container;
         TextView title,location;
         ViewHolder(View view){
@@ -136,16 +126,7 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
                     adUnit = mView.findViewById(R.id.adUnit);
                     container = mView.findViewById(R.id.container);
 
-                    if(BaseActivity.mGreedyGameAgent.isCampaignAvailable()) {
-                        Utils.loadAd(adUnit,listItem.value,false);
-                        adUnit.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        container.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                BaseActivity.mGreedyGameAgent.showUII(listItem.value);
-                            }
-                        });
-                    }
+                    adUnit.loadAd(this);
                     break;
                 case CONTENT:
                     final PlacesPagerItem dataItem = (PlacesPagerItem) listItem;
@@ -165,6 +146,30 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
             }
         }
 
+        @Override
+        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+            Toast.makeText(context,"AdLoad Failed",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAdLoaded() {
+            Toast.makeText(context,"AdLoaded",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onReadyForRefresh() {
+            Toast.makeText(context,"Ready for refresh",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onUiiClosed() {
+            Toast.makeText(context,"Uii Closed",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onUiiOpened() {
+            Toast.makeText(context,"Uii Opened",Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

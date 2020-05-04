@@ -13,12 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".BaseApplication"
+        android:name="com.greedygame.sample.BaseApplication"
         android:networkSecurityConfig="@xml/network_security_config"
         >
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".showcase.nongames.travel_app.TravelDashboard" />
-        <activity android:name=".showcasemenu.ShowcaseMenu">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
+        <activity android:name="com.greedygame.sample.BaseActivity" />
+        <activity android:name="com.greedygame.sample.sdk.java.showcase.nongames.travel_app.TravelDashboard" />
+        <activity android:name="com.greedygame.sample.sdk.java.showcase.nongames.showcasemenu.ShowcaseMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,30 +31,7 @@
         </activity>
 
 <!--        GreedyGame Stuff-->
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-        <activity
-            android:name="com.greedygame.android.core.campaign.uii.web.GGWebActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|layoutDirection"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.GGTransparent"/>
-
-        <activity
-            android:name="com.greedygame.android.core.mediation.greedygame.GGS2SActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|layoutDirection"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.GGTransparent"/>
-
-        <activity
-            android:name="com.greedygame.android.core.mediation.admob.GGAdMobActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|layoutDirection"
-            android:hardwareAccelerated="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.GGTransparent"/>
+        <activity android:name="com.greedygame.core.uii.GreedyGameActivity" />
 <!--        GreedyGame Stuff -->
     </application>
 

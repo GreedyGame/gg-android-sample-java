@@ -1,4 +1,4 @@
-package com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.fragment;
+package com.greedygame.sample.sdk.java.showcase.nongames.travel_app.fragment;
 
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
@@ -10,25 +10,30 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.greedygame.sample.sdk8.java.BaseActivity;
+import com.greedygame.core.adview.GGAdview;
+import com.greedygame.core.adview.interfaces.AdLoadCallback;
+import com.greedygame.core.adview.modals.AdRequestErrors;
+import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.sdk8.java.R;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model.PlacesPagerItem;
-import com.greedygame.sample.sdk8.java.utils.Utils;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.PlacesPagerItem;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.Utils;
 
-import kotlin.Unit;
+import org.jetbrains.annotations.NotNull;
+
 import kotlin.jvm.JvmStatic;
 
-public class PlacesDetailFragment extends Fragment {
+public class PlacesDetailFragment extends Fragment implements AdLoadCallback {
     private static final String ARG_PARAM1 = "param1";
-    private final String FLOAT_4346 = "float-4346";
     private PlacesPagerItem param1 = null;
     private ValueAnimator alphaValueAnimator =  ValueAnimator.ofFloat(1f,0f);
-    private ImageView exitButton,heroImage,ctaAdUnit,topAdUnit;
+    private ImageView exitButton,heroImage,ctaAdUnit;
+    private GGAdview topAdUnit;
     private TextView rating,title,location;
     private ScrollView scrollview;
 
@@ -58,21 +63,7 @@ public class PlacesDetailFragment extends Fragment {
             }
         });
 
-        Utils.loadAd(ctaAdUnit,FLOAT_4346,false);
-        ctaAdUnit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaseActivity.mGreedyGameAgent.showUII(FLOAT_4346);
-            }
-        });
-
-        Utils.loadAd(topAdUnit,FLOAT_4346,false);
-        topAdUnit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaseActivity.mGreedyGameAgent.showUII(FLOAT_4346);
-            }
-        });
+        topAdUnit.loadAd(this);
         if(param1 != null){
             title.setText(param1.title.replace("\n" ," "));
             location.setText(param1.location);
@@ -117,7 +108,32 @@ public class PlacesDetailFragment extends Fragment {
         location = view.findViewById(R.id.location);
     }
 
+    @Override
+    public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+        Toast.makeText(getContext(),"AdLoad Failed",Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onAdLoaded() {
+        Toast.makeText(getContext(),"AdLoaded",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onReadyForRefresh() {
+        Toast.makeText(getContext(),"Ready for refresh",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUiiClosed() {
+        Toast.makeText(getContext(),"Uii Closed",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUiiOpened() {
+        Toast.makeText(getContext(),"Uii Opened",Toast.LENGTH_SHORT).show();
+    }
+
+    //Not Important for sdk integration
     class VisiblityController{
         private int currentVisiblity = -999;
 

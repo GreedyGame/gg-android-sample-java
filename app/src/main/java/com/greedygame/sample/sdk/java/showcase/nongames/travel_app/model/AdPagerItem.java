@@ -1,15 +1,13 @@
-package com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model;
+package com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 public class AdPagerItem extends BaseItem {
 
     String adValue;
 
-    public AdPagerItem(ItemTypes type, String adValue){
-        super(type,adValue);
-        this.adValue = adValue;
+    public AdPagerItem(ItemTypes type){
+        super(type);
     }
 
    private AdPagerItem(Parcel in){

@@ -1,7 +1,10 @@
-package com.greedygame.sample.sdk8.java.showcase.nongames.travel_app;
+package com.greedygame.sample.sdk.java.showcase.nongames.travel_app;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,27 +15,30 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Slide;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.greedygame.android.core.campaign.CampaignStateListener;
-import com.greedygame.sample.sdk8.java.BaseActivity;
+import com.greedygame.core.adview.GGAdview;
+import com.greedygame.core.adview.interfaces.AdLoadCallback;
+import com.greedygame.core.adview.modals.AdRequestErrors;
+import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.sdk8.java.R;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.adapters.recyclerview.NewPlacesAdapter;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.adapters.viewpager.OnPageClick;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.adapters.viewpager.PlacesPagerAdapter;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.fragment.PlacesDetailFragment;
-import com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model.PlacesPagerItem;
-import com.greedygame.sample.sdk8.java.utils.Utils;
-import com.greedygame.sample.sdk8.java.utils.notimportant.Rectangle;
-import com.greedygame.sample.sdk8.java.utils.notimportant.SharedPrefManager;
-import com.greedygame.sample.sdk8.java.utils.notimportant.SizeReductionPageTransformer;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.adapters.recyclerview.NewPlacesAdapter;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.adapters.viewpager.OnPageClick;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.adapters.viewpager.PlacesPagerAdapter;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.fragment.PlacesDetailFragment;
+import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.PlacesPagerItem;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.Utils;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.notimportant.Rectangle;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.notimportant.SharedPrefManager;
+import com.greedygame.sample.sdk.java.showcase.nongames.utils.notimportant.SizeReductionPageTransformer;
 import com.takusemba.spotlight.OnSpotlightListener;
 import com.takusemba.spotlight.Spotlight;
 import com.takusemba.spotlight.Target;
@@ -40,14 +46,12 @@ import com.takusemba.spotlight.effet.RippleEffect;
 import com.takusemba.spotlight.shape.Circle;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import static android.graphics.Color.argb;
+import org.jetbrains.annotations.NotNull;
 
 public class TravelDashboard extends BaseActivity implements OnPageClick {
     PlacesPagerAdapter placesPagerAdapter = new PlacesPagerAdapter(this);
     NewPlacesAdapter newPlacesAdapter = new NewPlacesAdapter();
-    private TravelDashboardCampaignListener ggEventListener = new TravelDashboardCampaignListener();
     private int frameHolderId = 2567;
-    private String AD_UNIT_4347 = "float-4347";
 
     ConstraintLayout root;
     ScrollView scrollView;
@@ -66,12 +70,6 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mBaseCampaignStateListener.receiver = ggEventListener;
-    }
-
     private void initViews(){
         bindViews();
         setupViewPager();
@@ -80,7 +78,6 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
         frameHolder.setId(frameHolderId);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         root.addView(frameHolder,layoutParams);
-        Utils.loadTextAd(tabAd,AD_UNIT_4347);
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +99,6 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
 
     private void setupViewPager(){
         suggestionsPager.setAdapter(placesPagerAdapter);
-        placesPagerAdapter.filterData();
         suggestionsPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         suggestionsPager.setPageTransformer(new SizeReductionPageTransformer());
         dotsIndicator.setViewPager2(suggestionsPager);
@@ -116,12 +112,58 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if(getSupportFragmentManager().getBackStackEntryCount() == 0){
+        if(getSupportFragmentManager().getBackStackEntryCount() != 0){
             getSupportFragmentManager().popBackStackImmediate();
             return;
         }
-        super.onBackPressed();
+        showExitAlert();
+    }
+
+    void showExitAlert(){
+        LinearLayout view = (LinearLayout) LayoutInflater.from(getApplicationContext()).inflate(R.layout.exit_dialouge_header,null);
+        GGAdview exitUnit = view.findViewById(R.id.exitUnit);
+        exitUnit.loadAd(new AdLoadCallback() {
+            @Override
+            public void onAdLoaded() {
+                Toast.makeText(getApplicationContext(),"Exit ad Loaded",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+                Toast.makeText(getApplicationContext(),"Exit ad Load Failed",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onUiiOpened() {
+                Toast.makeText(getApplicationContext(),"Exit ad Uii OPened",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onUiiClosed() {
+                Toast.makeText(getApplicationContext(),"Exit ad Uii Closed",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onReadyForRefresh() {
+                Toast.makeText(getApplicationContext(),"Exit ad Ready for refresh",Toast.LENGTH_SHORT).show();
+            }
+        });
+        new AlertDialog.Builder(this)
+                .setPositiveButton("No",null)
+                .setNegativeButton("Yes",new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TravelDashboard.super.onBackPressed();
+                    }
+                })
+            .setCustomTitle(view)
+
+            /***
+             * The layout file is configured in
+             * @see R.layout.exit_dialouge_header
+             */
+            .show();
     }
 
     @Override
@@ -164,7 +206,7 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
         int[] viewPosition = Utils.getCenterCoordinates(linearLayout);
         return new Target.Builder()
                 .setAnchor(viewPosition[0],viewPosition[1])
-                .setShape(new com.greedygame.sample.sdk8.java.utils.notimportant.Rectangle(linearLayout,10))
+                .setShape(new com.greedygame.sample.sdk.java.showcase.nongames.utils.notimportant.Rectangle(linearLayout,10))
                 .setOverlay(LayoutInflater.from(this).inflate(R.layout.coach_marks_textad_target,null))
                 .build();
 
@@ -202,32 +244,5 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
 
     public void showNext(View view) {
         spotlight.next();
-    }
-
-    /**
-     * TravelDashboardCampaignListener listens to event from SDK via BaseCampaignListener and filters data
-     * to the list with or without ads if campaign is available or not available respectively.
-     */
-    private class TravelDashboardCampaignListener implements CampaignStateListener {
-        void callFilters(){
-            Utils.loadTextAd(tabAd,AD_UNIT_4347);
-            placesPagerAdapter.filterData();
-            newPlacesAdapter.filterData();
-        }
-        @Override
-        public void onUnavailable() {
-            callFilters();
-        }
-
-        @Override
-        public void onAvailable(String p0) {
-            callFilters();
-        }
-
-        @Override
-        public void onError(String p0) {
-            callFilters();
-        }
-
     }
 }

@@ -1,9 +1,10 @@
-package com.greedygame.sample.sdk8.java;
+package com.greedygame.sample;
 
-import android.app.Application;
 import android.content.Context;
 
-public class BaseApplication extends Application {
+import androidx.multidex.MultiDexApplication;
+
+public class BaseApplication extends MultiDexApplication {
     public static Context appContext = null;
 
     @Override
@@ -11,4 +12,5 @@ public class BaseApplication extends Application {
         super.onCreate();
         appContext = this;
     }
+
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:id="@+id/container"
-    tools:context=".showcasemenu.ShowcaseMenu">
+    tools:context="com.greedygame.sample.sdk.java.showcase.nongames.showcasemenu.ShowcaseMenu">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/contentViewPager"
