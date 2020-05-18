@@ -99,7 +99,7 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
 
     @Override
     public void onBindViewHolder(@NonNull NewPlaceViewHolder holder, int position) {
-        holder.bind(data.get(position));
+        holder.bind(position,data.get(position));
     }
 
     @Override
@@ -122,11 +122,11 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
             super(view);
             mView = view;
         }
-        public void bind( final BaseItem baseItem) {
+        public void bind(int position,final BaseItem baseItem) {
             switch(baseItem.itemType){
                 case AD:
                     adUnit = mView.findViewById(R.id.placeImageAd);
-                    adUnit.loadAd(this);
+                    adUnit.loadAd(new AdLoadListener(position));
                     break;
                 case CONTENT:
                     placeImage = mView.findViewById(R.id.placeImage);
@@ -165,6 +165,39 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
         @Override
         public void onUiiOpened() {
             Toast.makeText(context,"Uii Opened",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class AdLoadListener implements AdLoadCallback{
+        int mPosition;
+        AdLoadListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+            data.remove(mPosition);
+            notifyItemRemoved(mPosition);
+        }
+
+        @Override
+        public void onAdLoaded() {
+
+        }
+
+        @Override
+        public void onReadyForRefresh() {
+
+        }
+
+        @Override
+        public void onUiiClosed() {
+
+        }
+
+        @Override
+        public void onUiiOpened() {
+
         }
     }
 

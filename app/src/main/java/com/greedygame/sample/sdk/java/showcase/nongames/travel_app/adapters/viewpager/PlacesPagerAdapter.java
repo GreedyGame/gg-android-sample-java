@@ -101,7 +101,7 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(data.get(position),pageClickListener);
+        holder.bind(position,data.get(position),pageClickListener);
     }
 
     @Override
@@ -120,13 +120,12 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
             mView = view;
 
         }
-        void bind(final BaseItem listItem, final OnPageClick onPageClick) {
+        void bind(int position,final BaseItem listItem, final OnPageClick onPageClick) {
             switch (listItem.itemType){
                 case AD:
                     adUnit = mView.findViewById(R.id.adUnit);
                     container = mView.findViewById(R.id.container);
-
-                    adUnit.loadAd(this);
+                    adUnit.loadAd(new AdLoadListener(position));
                     break;
                 case CONTENT:
                     final PlacesPagerItem dataItem = (PlacesPagerItem) listItem;
@@ -169,6 +168,39 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
         @Override
         public void onUiiOpened() {
             Toast.makeText(context,"Uii Opened",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class AdLoadListener implements AdLoadCallback{
+        int mPosition;
+        AdLoadListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+            data.remove(mPosition);
+            notifyItemRemoved(mPosition);
+        }
+
+        @Override
+        public void onAdLoaded() {
+
+        }
+
+        @Override
+        public void onReadyForRefresh() {
+
+        }
+
+        @Override
+        public void onUiiClosed() {
+
+        }
+
+        @Override
+        public void onUiiOpened() {
+
         }
     }
 

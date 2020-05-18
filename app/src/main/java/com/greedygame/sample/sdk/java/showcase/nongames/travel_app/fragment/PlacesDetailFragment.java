@@ -63,7 +63,9 @@ public class PlacesDetailFragment extends Fragment implements AdLoadCallback {
             }
         });
 
-        topAdUnit.loadAd(this);
+//        topAdUnit.loadAd(this);
+        GGAdview bannerUnit = view.findViewById(R.id.bannerUnit);
+        bannerUnit.loadAd(this);
         if(param1 != null){
             title.setText(param1.title.replace("\n" ," "));
             location.setText(param1.location);

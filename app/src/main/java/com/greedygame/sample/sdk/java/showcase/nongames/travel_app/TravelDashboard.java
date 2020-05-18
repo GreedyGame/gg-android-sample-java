@@ -81,7 +81,7 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initCoachmarks();
+//                initCoachmarks();
             }
         });
     }
@@ -170,7 +170,7 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus && SharedPrefManager.isShouldShowCoachMarks()){
-            initCoachmarks();
+//            initCoachmarks();
         }
     }
 
