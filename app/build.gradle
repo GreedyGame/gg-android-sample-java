@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation 'com.google.android.gms:play-services-ads:19.1.0'
-    implementation "com.greedygame.sdkx:core:0.0.65"
+    implementation "com.greedygame.sdkx:core:0.0.69"
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'

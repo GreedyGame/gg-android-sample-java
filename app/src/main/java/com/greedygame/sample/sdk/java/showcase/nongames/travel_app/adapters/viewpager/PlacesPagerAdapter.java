@@ -45,7 +45,7 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
      ** IMPORTANT **
      When displaying admob ads make sure that there is only one unit visible on the screen at any time.
      */
-    private List<BaseItem> data = new ArrayList<>(Arrays.asList(
+    private List<PlacesPagerItem> data = new ArrayList<>(Arrays.asList(
             new PlacesPagerItem(
                     ItemTypes.CONTENT,
                     "https://i.imgur.com/y7v9pCJ.png",
@@ -61,8 +61,6 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
                     "https://i.imgur.com/ZBFe67z.png",
                     "Amristar\nFort",
                     "Amrister,India"
-            ), new AdPagerItem(
-                    ItemTypes.AD
             ), new PlacesPagerItem(
                     ItemTypes.CONTENT,
                     "https://i.imgur.com/T5tPude.png",
@@ -73,8 +71,6 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
                     "https://i.imgur.com/v9CS3W3.png",
                     "Eiffel\nTower",
                     "Paris,France"
-            ), new AdPagerItem(
-                    ItemTypes.AD
             )
 
     ));
@@ -83,11 +79,8 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        switch(data.get(position).itemType){
-            case AD:
-                return R.layout.places_pager_ad_item;
-            case CONTENT:
-                return R.layout.places_pager_item;
+        if (data.get(position).itemType == ItemTypes.CONTENT) {
+            return R.layout.places_pager_item;
         }
         return 0;
     }
@@ -109,9 +102,8 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
         return data.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements AdLoadCallback {
+    class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        GGAdview adUnit;
         ImageView heroImage;
         ConstraintLayout container;
         TextView title,location;
@@ -122,11 +114,6 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
         }
         void bind(int position,final BaseItem listItem, final OnPageClick onPageClick) {
             switch (listItem.itemType){
-                case AD:
-                    adUnit = mView.findViewById(R.id.adUnit);
-                    container = mView.findViewById(R.id.container);
-                    adUnit.loadAd(new AdLoadListener(position));
-                    break;
                 case CONTENT:
                     final PlacesPagerItem dataItem = (PlacesPagerItem) listItem;
                     title = mView.findViewById(R.id.title);
@@ -144,65 +131,9 @@ public class PlacesPagerAdapter extends RecyclerView.Adapter<PlacesPagerAdapter.
                     });
             }
         }
-
-        @Override
-        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
-            Toast.makeText(context,"AdLoad Failed",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onAdLoaded() {
-            Toast.makeText(context,"AdLoaded",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onReadyForRefresh() {
-            Toast.makeText(context,"Ready for refresh",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onUiiClosed() {
-            Toast.makeText(context,"Uii Closed",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onUiiOpened() {
-            Toast.makeText(context,"Uii Opened",Toast.LENGTH_SHORT).show();
-        }
     }
 
-    class AdLoadListener implements AdLoadCallback{
-        int mPosition;
-        AdLoadListener(int position){
-            mPosition = position;
-        }
 
-        @Override
-        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
-            data.remove(mPosition);
-            notifyItemRemoved(mPosition);
-        }
-
-        @Override
-        public void onAdLoaded() {
-
-        }
-
-        @Override
-        public void onReadyForRefresh() {
-
-        }
-
-        @Override
-        public void onUiiClosed() {
-
-        }
-
-        @Override
-        public void onUiiOpened() {
-
-        }
-    }
 
 }
 

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/bannerUnit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
@@ -181,14 +181,5 @@
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_chevron_down" />
     </FrameLayout>
-
-    <com.greedygame.core.adview.GGAdview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/bannerUnit"
-        app:unitId="float-4516" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

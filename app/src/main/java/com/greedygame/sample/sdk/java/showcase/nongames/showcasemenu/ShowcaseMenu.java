@@ -40,13 +40,14 @@ public class ShowcaseMenu extends BaseActivity implements GreedyGameAdsEventsLis
         initViewPager();
         setClickListeners();
         //Registering the event receiver for this class to the BaseClass
-        if(GreedyGameAds.isSdkInitialized()) {
-            hideLoader();
-        }
-        else {
-            showLoader();
-            GreedyGameManager.init(BaseApplication.appContext,this);
-        }
+//        if(GreedyGameAds.isSdkInitialized()) {
+//            hideLoader();
+//        }
+//        else {
+//            showLoader();
+//            GreedyGameManager.init(BaseApplication.appContext,this);
+//        }
+        hideLoader();
     }
     private void bindViews(){
         buttonBar = findViewById(R.id.buttonBar);

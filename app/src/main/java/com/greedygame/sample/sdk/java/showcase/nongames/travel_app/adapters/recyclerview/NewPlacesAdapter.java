@@ -38,7 +38,7 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
      ** IMPORTANT **
      When displaying admob ads make sure that there is only one unit visible on the screen at any time.
      */
-    private List<BaseItem> data = new ArrayList<>(Arrays.asList(
+    private List<PlacesPagerItem> data = new ArrayList<>(Arrays.asList(
            new PlacesPagerItem(
                     ItemTypes.CONTENT,
                    "https://i.imgur.com/0a6l6n2.png",
@@ -52,18 +52,12 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
                     "Castle"
 
             ),
-            new AdPagerItem(
-                    ItemTypes.AD
-            ),
             new PlacesPagerItem(
                     ItemTypes.CONTENT,
                     "https://i.imgur.com/BihS6yR.png",
                     "Venice",
                     "River Aga"
 
-            ),
-            new AdPagerItem(
-                    ItemTypes.AD
             ),
             new PlacesPagerItem(
                     ItemTypes.CONTENT,
@@ -104,30 +98,22 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
 
     @Override
     public int getItemViewType(int position) {
-        switch(data.get(position).itemType){
-            case AD:
-                return R.layout.new_places_ad_item;
-            case CONTENT:
-                return R.layout.new_places_rv_item;
+        if (data.get(position).itemType == ItemTypes.CONTENT) {
+            return R.layout.new_places_rv_item;
         }
         return 0;
     }
 
-    class NewPlaceViewHolder extends RecyclerView.ViewHolder implements AdLoadCallback {
+    class NewPlaceViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageView placeImage;
         TextView place,placeName;
-        GGAdview adUnit;
         NewPlaceViewHolder(View view){
             super(view);
             mView = view;
         }
         public void bind(int position,final BaseItem baseItem) {
             switch(baseItem.itemType){
-                case AD:
-                    adUnit = mView.findViewById(R.id.placeImageAd);
-                    adUnit.loadAd(new AdLoadListener(position));
-                    break;
                 case CONTENT:
                     placeImage = mView.findViewById(R.id.placeImage);
                     place = mView.findViewById(R.id.place);
@@ -141,65 +127,8 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
                     break;
             }
         }
-
-        @Override
-        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
-            Toast.makeText(context,"AdLoad Failed",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onAdLoaded() {
-            Toast.makeText(context,"AdLoaded",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onReadyForRefresh() {
-            Toast.makeText(context,"Ready for refresh",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onUiiClosed() {
-            Toast.makeText(context,"Uii Closed",Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onUiiOpened() {
-            Toast.makeText(context,"Uii Opened",Toast.LENGTH_SHORT).show();
-        }
     }
 
-    class AdLoadListener implements AdLoadCallback{
-        int mPosition;
-        AdLoadListener(int position){
-            mPosition = position;
-        }
-
-        @Override
-        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
-            data.remove(mPosition);
-            notifyItemRemoved(mPosition);
-        }
-
-        @Override
-        public void onAdLoaded() {
-
-        }
-
-        @Override
-        public void onReadyForRefresh() {
-
-        }
-
-        @Override
-        public void onUiiClosed() {
-
-        }
-
-        @Override
-        public void onUiiOpened() {
-
-        }
-    }
 
 }
 

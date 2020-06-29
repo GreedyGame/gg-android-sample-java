@@ -17,6 +17,6 @@ public class GreedyGameManager {
         AppConfig appConfig = new AppConfig.Builder(context)
                 .withAppId("75512866")
                 .build();
-        GreedyGameAds.initWith(appConfig, listener);
+//        GreedyGameAds.initWith(appConfig, listener);
     }
 }
