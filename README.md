@@ -1,22 +1,22 @@
 # GreedyGame Sample App
 
-SDK Version 8.8.16
+SDKX Version 0.0.70
 
-Last Updated 10th Jan 2020
+Last Updated 8th July 2020
 
 # Integration
-Apps can easily integrate GreedyGame SDK with Gradle 
+Apps can easily integrate GreedyGame SDKX with Gradle
 #### Add the dependency to your app `build.gradle`
 ``` gradle
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    ...............
     ...............
     //greedygame sdk
-    implementation 'com.greedygame:greedygame:8.8.16'
+    implementation 'com.greedygame.sdkx:core:0.0.70'
 }
 ```
-#### For the further steps visit our documentation at [docs.greedygame.com](https://docs.greedygame.com/android-advanced/)
+#### Currently under EAP
 
 # License
 The code for the sample app is provided under MIT License.
