@@ -63,17 +63,22 @@ public class PlacesDetailFragment extends Fragment implements AdLoadCallback {
             }
         });
 
-//        topAdUnit.loadAd(this);
-        GGAdview bannerUnit = view.findViewById(R.id.bannerUnit);
-        bannerUnit.loadAd(this);
         if(param1 != null){
             title.setText(param1.title.replace("\n" ," "));
             location.setText(param1.location);
             Utils.loadImage(heroImage,param1.heroUrl);
         }
 
+        loadAd(view);
+
         setScrollView();
     }
+
+    private void loadAd(View view){
+        GGAdview bannerUnit = view.findViewById(R.id.bannerUnit);
+        bannerUnit.loadAd(this);
+    }
+
     private void setScrollView(){
         final Rect scrollViewRect = new Rect();
         final VisiblityController visiblityController = new VisiblityController();

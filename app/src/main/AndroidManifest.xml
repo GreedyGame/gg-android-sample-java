@@ -30,9 +30,7 @@
             </intent-filter>
         </activity>
 
-<!--        GreedyGame Stuff-->
-        <activity android:name="com.greedygame.core.uii.GreedyGameActivity" />
-<!--        GreedyGame Stuff -->
+
     </application>
 
 </manifest>
