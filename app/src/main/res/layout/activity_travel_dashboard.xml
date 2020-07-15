@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:id="@+id/root"
-    tools:context=".showcase.nongames.travel_app.TravelDashboard">
+    tools:context="com.greedygame.sample.sdk.java.showcase.nongames.travel_app.TravelDashboard">
 
     <FrameLayout
         android:id="@+id/frameLayout"

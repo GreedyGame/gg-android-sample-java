@@ -1,4 +1,4 @@
-package com.greedygame.sample.sdk8.java.showcasemenu;
+package com.greedygame.sample.sdk.java.showcase.nongames.showcasemenu;
 
 import android.view.LayoutInflater;
 import android.view.View;

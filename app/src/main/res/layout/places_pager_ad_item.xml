@@ -6,14 +6,17 @@
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
     android:id="@+id/container"
+    android:layout_marginStart="50dp"
+    android:layout_marginEnd="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.greedygame.core.adview.GGAdview
         android:id="@+id/adUnit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
+        app:unitId="float-4704"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

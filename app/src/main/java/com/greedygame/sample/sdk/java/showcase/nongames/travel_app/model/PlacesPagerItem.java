@@ -1,7 +1,6 @@
-package com.greedygame.sample.sdk8.java.showcase.nongames.travel_app.model;
+package com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 public class PlacesPagerItem extends BaseItem {
 

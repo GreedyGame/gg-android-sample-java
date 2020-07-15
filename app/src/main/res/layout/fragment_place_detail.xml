@@ -8,12 +8,13 @@
     android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:id="@+id/scrollView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bannerUnit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
@@ -61,8 +62,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/ic_tag_bg"
-                android:gravity="center"
                 android:fontFamily="@font/poppins"
+                android:gravity="center"
                 android:text="Outdoors"
                 android:textAlignment="center"
                 android:textColor="#fff"
@@ -130,12 +131,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="100dp"
+    <com.greedygame.core.adview.GGAdview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:id="@+id/topAdUnit"
+        app:unitId="float-1004"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
@@ -180,5 +182,13 @@
             android:src="@drawable/ic_chevron_down" />
     </FrameLayout>
 
+    <com.greedygame.core.adview.GGAdview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/bannerUnit"
+        app:unitId="float-4706" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

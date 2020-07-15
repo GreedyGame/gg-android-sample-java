@@ -1,9 +1,9 @@
-package com.greedygame.sample.sdk8.java.utils.notimportant;
+package com.greedygame.sample.sdk.java.showcase.nongames.utils.notimportant;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.greedygame.sample.sdk8.java.BaseApplication;
+import com.greedygame.sample.BaseApplication;
 
 public class SharedPrefManager {
     static private SharedPreferences sharePref = BaseApplication.appContext.getSharedPreferences("GG_DEMO_SHARED_PREFRENCE", Context.MODE_PRIVATE);
