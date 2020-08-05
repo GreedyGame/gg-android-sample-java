@@ -18,7 +18,7 @@ dependencies {
     implementation "androidx.palette:palette:1.0.0"
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
     annotationProcessor("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
-    implementation 'com.greedygame.sdkx:core:0.0.70'
+    implementation 'com.greedygame.sdkx:core:0.0.71'
 }
 ```
 #### Currently under EAP
