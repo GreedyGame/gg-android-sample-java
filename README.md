@@ -1,6 +1,6 @@
 # GreedyGame Sample App
 
-SDKX Version 0.0.75
+SDKX Version 0.0.77
 
 Last Updated 27th Aug 2020
 
