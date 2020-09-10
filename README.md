@@ -1,8 +1,8 @@
 # GreedyGame Sample App
 
-SDKX Version 0.0.78
+SDKX Version 0.0.79
 
-Last Updated 3rd Sep 2020
+Last Updated 10th Sep 2020
 
 # Integration
 Apps can easily integrate GreedyGame SDKX with Gradle
@@ -18,7 +18,7 @@ dependencies {
     implementation "androidx.palette:palette:1.0.0"
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
     annotationProcessor("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
-    implementation 'com.greedygame.sdkx:core:0.0.78'
+    implementation 'com.greedygame.sdkx:core:0.0.79'
 }
 ```
 #### Currently under EAP
