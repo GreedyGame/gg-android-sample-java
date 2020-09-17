@@ -1,8 +1,8 @@
 # GreedyGame Sample App
 
-SDKX Version 0.0.79
+SDKX Version 0.0.80
 
-Last Updated 10th Sep 2020
+Last Updated 17th Sep 2020
 
 # Integration
 Apps can easily integrate GreedyGame SDKX with Gradle
