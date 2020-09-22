@@ -2,8 +2,6 @@
 
 SDKX Version [ ![latest](https://api.bintray.com/packages/greedygame/SDKX/com.greedygame.core/images/download.svg) ](https://bintray.com/greedygame/SDKX/com.greedygame.core/_latestVersion)
 
-Last Updated 17th Sep 2020
-
 # Integration
 Apps can easily integrate GreedyGame SDKX with Gradle
 #### Add the dependency to your app `build.gradle`
