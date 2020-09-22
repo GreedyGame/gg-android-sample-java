@@ -1,6 +1,6 @@
 # GreedyGame Sample App
 
-SDKX Version 0.0.80
+SDKX Version [ ![latest](https://api.bintray.com/packages/greedygame/SDKX/com.greedygame.core/images/download.svg) ](https://bintray.com/greedygame/SDKX/com.greedygame.core/_latestVersion)
 
 Last Updated 17th Sep 2020
 
@@ -18,7 +18,7 @@ dependencies {
     implementation "androidx.palette:palette:1.0.0"
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
     annotationProcessor("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
-    implementation 'com.greedygame.sdkx:core:0.0.80'
+    implementation 'com.greedygame.sdkx:core:x.y.z'
 }
 ```
 #### Currently under EAP
