@@ -32,7 +32,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     //Dependencies for sdkx
-    implementation "com.greedygame.sdkx:core:0.0.83"
+    implementation "com.greedygame.sdkx:core:0.0.84"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.palette:palette:1.0.0"
