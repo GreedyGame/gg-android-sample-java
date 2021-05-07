@@ -1,7 +1,6 @@
 # GreedyGame Sample App
 
-SDKX Version [ ![latest](https://api.bintray.com/packages/greedygame/SDKX/com.greedygame.core/images/download.svg) ](https://bintray.com/greedygame/SDKX/com.greedygame.core/_latestVersion)
-
+SDKX Version ![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.greedygame.sdkx/core/badge.svg)
 # Integration
 Apps can easily integrate GreedyGame SDKX with Gradle
 #### Add the dependency to your app `build.gradle`
