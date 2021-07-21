@@ -25,9 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.Slide;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.greedygame.core.adview.GGAdview;
-import com.greedygame.core.adview.interfaces.AdLoadCallback;
-import com.greedygame.core.adview.modals.AdRequestErrors;
+import com.greedygame.core.adview.general.AdLoadCallback;
+import com.greedygame.core.adview.general.GGAdview;
+import com.greedygame.core.models.general.AdErrors;
 import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.sdk8.java.R;
 import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.adapters.recyclerview.NewPlacesAdapter;
@@ -129,7 +129,7 @@ public class TravelDashboard extends BaseActivity implements OnPageClick {
             }
 
             @Override
-            public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+            public void onAdLoadFailed(@NotNull AdErrors adRequestErrors) {
                 Toast.makeText(getApplicationContext(),"Exit ad Load Failed",Toast.LENGTH_SHORT).show();
             }
 

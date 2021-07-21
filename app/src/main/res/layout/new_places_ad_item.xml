@@ -8,7 +8,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-   <com.greedygame.core.adview.GGAdview
+   <com.greedygame.core.adview.general.GGAdview
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/placeImageAd"

@@ -12,6 +12,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             applicationIdSuffix ".release"
@@ -33,16 +38,16 @@ dependencies {
 
 
     //Dependencies for sdkx
-    implementation "com.greedygame.sdkx:core:0.0.87"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "com.greedygame.sdkx:core:0.0.89"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.palette:palette:1.0.0"
-    implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
-    annotationProcessor("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    annotationProcessor("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
     //Optional
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation 'com.google.android.gms:play-services-ads:19.1.0'
+    implementation 'com.google.android.gms:play-services-ads:20.2.0'
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -51,4 +56,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation "com.github.takusemba:spotlight:2.0.1"
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.5.1'
 }

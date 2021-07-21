@@ -131,7 +131,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <com.greedygame.core.adview.GGAdview
+    <com.greedygame.core.adview.general.GGAdview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -182,7 +182,7 @@
             android:src="@drawable/ic_chevron_down" />
     </FrameLayout>
 
-    <com.greedygame.core.adview.GGAdview
+    <com.greedygame.core.adview.general.GGAdview
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:maxHeight="50dp"

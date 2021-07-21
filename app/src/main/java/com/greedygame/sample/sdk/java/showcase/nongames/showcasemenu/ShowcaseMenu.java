@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.greedygame.core.GreedyGameAds;
 import com.greedygame.core.interfaces.GreedyGameAdsEventsListener;
-import com.greedygame.core.models.InitErrors;
+import com.greedygame.core.models.general.InitErrors;
 import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.BaseApplication;
 import com.greedygame.sample.GreedyGameManager;
@@ -91,11 +91,6 @@ public class ShowcaseMenu extends BaseActivity implements GreedyGameAdsEventsLis
         contentViewPager.setPageTransformer(new SizeReductionPageTransformer());
         dotsIndicator.setViewPager2(contentViewPager);
 
-    }
-
-    @Override
-    public void onDestroyed() {
-        Toast.makeText(this,"SDK Destroyed",Toast.LENGTH_SHORT).show();
     }
 
     @Override

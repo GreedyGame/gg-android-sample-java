@@ -12,9 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.greedygame.core.adview.GGAdview;
-import com.greedygame.core.adview.interfaces.AdLoadCallback;
-import com.greedygame.core.adview.modals.AdRequestErrors;
+import com.greedygame.core.adview.general.AdLoadCallback;
+import com.greedygame.core.adview.general.GGAdview;
+import com.greedygame.core.models.general.AdErrors;
 import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.sdk8.java.R;
 import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.AdPagerItem;
@@ -143,7 +143,7 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
         }
 
         @Override
-        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+        public void onAdLoadFailed(@NotNull AdErrors adRequestErrors) {
             Toast.makeText(context,"AdLoad Failed",Toast.LENGTH_SHORT).show();
         }
 
@@ -175,7 +175,7 @@ public class NewPlacesAdapter extends RecyclerView.Adapter<NewPlacesAdapter.NewP
         }
 
         @Override
-        public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+        public void onAdLoadFailed(@NotNull AdErrors adRequestErrors) {
             data.remove(mPosition);
             notifyItemRemoved(mPosition);
         }

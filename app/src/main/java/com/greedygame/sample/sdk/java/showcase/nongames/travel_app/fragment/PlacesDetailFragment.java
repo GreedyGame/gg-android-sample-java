@@ -16,9 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.greedygame.core.adview.GGAdview;
-import com.greedygame.core.adview.interfaces.AdLoadCallback;
-import com.greedygame.core.adview.modals.AdRequestErrors;
+import com.greedygame.core.adview.general.AdLoadCallback;
+import com.greedygame.core.adview.general.GGAdview;
+import com.greedygame.core.models.general.AdErrors;
 import com.greedygame.sample.BaseActivity;
 import com.greedygame.sample.sdk8.java.R;
 import com.greedygame.sample.sdk.java.showcase.nongames.travel_app.model.PlacesPagerItem;
@@ -116,7 +116,7 @@ public class PlacesDetailFragment extends Fragment implements AdLoadCallback {
     }
 
     @Override
-    public void onAdLoadFailed(@NotNull AdRequestErrors adRequestErrors) {
+    public void onAdLoadFailed(@NotNull AdErrors adRequestErrors) {
         Toast.makeText(getContext(),"AdLoad Failed",Toast.LENGTH_SHORT).show();
     }
 

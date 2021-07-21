@@ -16,6 +16,7 @@ public class GreedyGameManager {
             return;
         AppConfig appConfig = new AppConfig.Builder(context)
                 .withAppId("89221032")
+                .enableFacebookAds(true)
                 .build();
         GreedyGameAds.initWith(appConfig, listener);
     }
